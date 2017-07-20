@@ -1,0 +1,30 @@
+td{
+  width: 80px;
+  height: 20px;
+  border: 1px solid;
+  text-align: center;
+}
+.number{
+  background-color: green;
+}
+.number2{
+  background-color: red;
+}
+.number3{
+    background-color: yellow;
+}
+#Reservar {
+  background: #054877;
+  width: 450px;
+  padding: 15px;
+  margin: 15px;
+  font-family:"Comic Sans MS";
+}
+
+.lista {
+  background: pink;
+  width: 300px;
+  padding: 15px;
+  margin: 15px;
+  font-family:"Comic Sans MS";
+}
