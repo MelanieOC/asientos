@@ -1,24 +1,39 @@
 td{
-  width: 80px;
-  height: 20px;
-  border: 1px solid;
+  width: 70px;
+  height: 30px;
   text-align: center;
+  font-size: 170%;
+  border-radius: 25px;
 }
-.number{
-  background-color: green;
+.desocupado{
+  background-color: #08B72B;
 }
-.number2{
-  background-color: red;
+.ocupado{
+  background-color: #F74438;
 }
-.number3{
-    background-color: yellow;
-}
-#Reservar {
-  background: #054877;
-  width: 450px;
-  padding: 15px;
+
+#Asiento{
+  background: #65E3F7;
+  width: 250px;
+  padding: 10px;
   margin: 15px;
   font-family:"Comic Sans MS";
+  border-style: groove;
+}
+#asientos{
+  border-style: groove;
+  width: 650px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+#Reservar {
+  background: #06266A;
+  color: white;
+  width: 350px;
+  padding: 15px 15px;
+  margin: 15px;
+  font-family:"Comic Sans MS";
+  border-style: groove;
 }
 
 .lista {
@@ -27,4 +42,13 @@ td{
   padding: 15px;
   margin: 15px;
   font-family:"Comic Sans MS";
+}
+button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  display: inline-block;
+  font-size: 18px;
 }

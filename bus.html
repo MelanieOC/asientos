@@ -6,31 +6,18 @@
     <link href="css/bus.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <div align = 'center'>
+    <center>
       <h1>Elige tu asiento</h1>
-      <div style="font-size:170%" id='asientos'></div>
+      <div id='asientos'></div>
       <p><br></p>
-      <div id="buscando">
-        <p>
-          <label>DNI: </label>
-          <input type="text" id="busqueda"/>
-          <button onclick="Buscar()">Buscar</button>
-        </p>
-        <p><div id="encontrado"></div></p>
-      </div>
-      <p><div id="Asiento"><span id="numeroAsiento"></span></div></p>
-      <div align="left" id="Reservar">
-        <p>Nombre: <input type="text" id="nombre" placeholder="Nombres"/><br></p>
-        <p>Apellido: <input type="text" id="apellido" placeholder="Apellidos"></p>
-        <p>DNI: <input type="text" id="dni" placeholder="DNI"></p>
-      </div>
+      <div id="Asiento">Dale click al asiento</div></p>
+      <div id="Contenido"></div>
       <div id="botones">
-        <button onclick="Liberar()">Cancelar</button>
-        <button onclick="Reservar()">Reservar</button>
-        <p><button onclick="Listar()">Listar</button></p>
+        <button onclick="Busqueda()">Buscando</button>
+        <button onclick="Listar()">Listar</button>
       </div>
       <div id=mostrar></div>
-    </div>
+    </center>
     <script src= 'js/bus.js'></script>
   </body>
 </html>
