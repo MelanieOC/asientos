@@ -6,10 +6,11 @@ td{
   border-radius: 25px;
 }
 .desocupado{
-  background-color: #08B72B;
+  background-color: #4CAF50;
 }
 .ocupado{
-  background-color: #F74438;
+  background-color: #C82222;
+  color: white;
 }
 
 #Asiento{
@@ -35,20 +36,33 @@ td{
   font-family:"Comic Sans MS";
   border-style: groove;
 }
-
+.button2{
+  background-color: #0F76C6;
+  border: 2px solid #0A67AF;
+  padding: 8px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+}
 .lista {
-  background: pink;
+  background: #22A1C8;
   width: 300px;
-  padding: 15px;
+  padding: 20px;
   margin: 15px;
   font-family:"Comic Sans MS";
 }
 button{
-  background-color: #4CAF50; /* Green */
+  background-color: #A8B9C6;
   border: none;
   color: white;
   padding: 12px;
+  margin-right: 10px;
+  margin-left: 10px;
   text-align: center;
-  display: inline-block;
   font-size: 18px;
+}
+
+h1{
+  color:#0E84DF;
+  text-shadow: #0ED4DF;
 }

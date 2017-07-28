@@ -23,27 +23,21 @@ for (var i = 0; i < celdas.length; i++) {
     celdas[i].addEventListener('click',redirect);
 }
 
+var Contenido = document.getElementById('Contenido');
 var numero;//variable global que agarrará el valor del numero de asiento
 var celdita;//variable global que agarrará la celda seleccionada
 function redirect(event){
   limpiar();
   celdita=event.target;
   numero = event.target.textContent;//se extrae el valor de cada celda
-  document.getElementById('Asiento').innerHTML = "Asiento N°"+numero;
   var estadoCelda=celdita.className;
 
   if(estadoCelda=='desocupado'){//si el asiento esta desocupada se mostrará en pantalla el formulario y el boton Reservar
-    var _nombre='<p>Nombre: <input type="text" id="nombre" placeholder="Nombres" required/></p>';
-    var _apellido = '<p>Apellidos: <input type="text" id="apellido" placeholder="Apellidos" required></p>';
-    var _dni= '<p>DNI: <input type="number" id="dni" placeholder="DNI" required></p>';
-    var boton= '<p><button onclick="Reservar()">Reservar</button></p>'
-    document.getElementById('Contenido').innerHTML= '<form id="Reservar">' + _nombre+_apellido+_dni+boton+'</form>';
+    Contenido.innerHTML= formulario(numero);
   } else { // si esta ocupada se mostrara los datos que contiene ese asiento y el boton cancelar
-    var Name = "<strong>Nombres: </strong>" + asientos[numero-1].nombre + "<br>";
-    var Surname = "<strong>Apellidos: </strong>" + asientos[numero-1].apellido + "<br>";
-     var Id = "<strong>DNI: </strong>" + asientos[numero-1].dni + "<br>";
-    var _button = '<p><button onclick="Liberar()">Cancelar</button></p>'
-    document.getElementById('Contenido').innerHTML='<div class="lista">'+Name + Surname + Id +_button+ '</div>';
+    Contenido.innerHTML += mostrar(numero);
+    var _button = '<p><button onclick="Liberar()" class="button2">Cancelar</button></p>'
+    Contenido.innerHTML+= _button;
   }
 
 }
@@ -52,28 +46,50 @@ function Reservar() {//funcion reservar que los datos ingresados se almacenaran 
   var name =  document.getElementById('nombre').value;
   var surname  = document.getElementById('apellido').value;
   var id = document.getElementById('dni').value;
-    asientos[numero - 1] = {//se almacena como un array
+    asientos[numero - 1] = {//se almacena como un objeto dentro del array
       nombre: name,
       apellido:surname,
       dni: id
     };
+
+  if(name!='' && surname!='' && id!=''){
     celdita.className="ocupado";
-    //document.getElementById(numero).className = "ocupado";
-  limpiar();
+    limpiar();
+  }
+
+}
+
+function formulario(numero) {
+  var html = '';
+  html+='<p>Asiento N°' + numero + '</p>';
+  html+='<p>Nombre: <input type="text" id="nombre" placeholder="Nombres" required/></p>';
+  html+= '<p>Apellidos: <input type="text" id="apellido" placeholder="Apellidos" required></p>';
+  html+= '<p>DNI: <input type="number" id="dni" placeholder="DNI" required></p>';
+  html+= '<p><input type="submit" onclick="Reservar()" value="Reservar"></p>'
+  return  '<form id="Reservar"' + html + '</form>';
+}
+
+function mostrar(numero) {
+  var html='';
+  html += "<strong>Asiento Nº "+numero+"</strong><br>";
+  html += "<strong>Nombres: </strong>" + asientos[numero-1].nombre + "<br>";
+  html += "<strong>Apellidos: </strong>" + asientos[numero-1].apellido + "<br>";
+  html += "<strong>DNI: </strong>" + asientos[numero-1].dni + "<br>";
+  return '<div class="lista">'+html+ '</div>';
 }
 
 function limpiar() { //funcion para que borre el contenido
-  document.getElementById('Contenido').innerHTML = '';
-  document.getElementById('Asiento').innerHTML='Dale click al asiento';
+  Contenido.innerHTML = '';
   document.getElementById('mostrar').innerHTML='';
 }
 
 function Busqueda() {
     limpiar();
-    var _dni= 'Introduzca DNI:<input type="text" id="busqueda"/>';
-    var _boton ='<button onclick="Buscar()">Buscar</button>';
+    var _dni= '<p>Introduzca DNI:<input type="text" id="busqueda"/></p>';
+    var _boton ='<p><button class="button2" onclick="Buscar()">Buscar</button></p>';
     document.getElementById('Contenido').innerHTML = _dni + _boton
 }
+
 function Liberar() {
   asientos[numero - 1] = undefined;
   celdita.className = "desocupado";
@@ -82,15 +98,13 @@ function Liberar() {
 
 function Buscar() {
   var busqueda = document.getElementById('busqueda').value;
+  var lista='';
   for(var i= 1; i <= asientos.length; i++){
     if(asientos[i-1]!=undefined && busqueda == asientos[i-1].dni){
-      var chair = "<strong>Asiento"+numero+"</strong><br>";
-      var Name = "<strong>Nombres: </strong>" + asientos[i-1].nombre + "<br>";
-      var Surname = "<strong>Apellidos: </strong>" + asientos[i-1].apellido + "<br>";
-      var Id = "<strong>DNI: </strong>" + asientos[i-1].dni + "<br>";
-      document.getElementById('mostrar').innerHTML='<div class="lista">'+chair +Name + Surname + Id + '</div>';;
+      lista += mostrar(i);
     }
   }
+  document.getElementById('mostrar').innerHTML=lista;
 }
 
 function Listar() {
@@ -98,11 +112,7 @@ function Listar() {
   var lista = '';
   for (var i = 1; i <= asientos.length; i++) {
     if (asientos[i-1]!= undefined) {
-      var chair = "<strong>Asiento: </strong>"+i+"<br>";
-      var Name = "<strong>Nombres: </strong>" + asientos[i-1].nombre + "<br>";
-      var Surname = "<strong>Apellidos: </strong>" + asientos[i-1].apellido + "<br>";
-      var Id = "<strong>DNI: </strong>" + asientos[i-1].dni + "<br>";
-      lista += '<div class="lista">'+chair+Name + Surname + Id + '</div>';
+      lista += mostrar(i);
     }
   }
   document.getElementById('mostrar').innerHTML=lista;
