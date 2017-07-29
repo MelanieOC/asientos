@@ -35,7 +35,7 @@ function redirect(event){
   if(estadoCelda=='desocupado'){//si el asiento esta desocupada se mostrará en pantalla el formulario y el boton Reservar
     Contenido.innerHTML= formulario(numero);
   } else { // si esta ocupada se mostrara los datos que contiene ese asiento y el boton cancelar
-    Contenido.innerHTML += mostrar(numero);
+    Contenido.innerHTML += mostrar(asientos[numero-1]);
     var _button = '<p><button onclick="Liberar()" class="button2">Cancelar</button></p>'
     Contenido.innerHTML+= _button;
   }
@@ -46,13 +46,14 @@ function Reservar() {//funcion reservar que los datos ingresados se almacenaran 
   var name =  document.getElementById('nombre').value;
   var surname  = document.getElementById('apellido').value;
   var id = document.getElementById('dni').value;
-    asientos[numero - 1] = {//se almacena como un objeto dentro del array
-      nombre: name,
-      apellido:surname,
-      dni: id
-    };
 
   if(name!='' && surname!='' && id!=''){
+    asientos[numero - 1] = {//se almacena como un objeto dentro del array
+      asiento:numero,
+      nombre:name,
+      apellido:surname,
+      dni:id
+    };
     celdita.className="ocupado";
     limpiar();
   }
@@ -69,12 +70,12 @@ function formulario(numero) {
   return  '<form id="Reservar"' + html + '</form>';
 }
 
-function mostrar(numero) {
+function mostrar(objeto) {
   var html='';
-  html += "<strong>Asiento Nº "+numero+"</strong><br>";
-  html += "<strong>Nombres: </strong>" + asientos[numero-1].nombre + "<br>";
-  html += "<strong>Apellidos: </strong>" + asientos[numero-1].apellido + "<br>";
-  html += "<strong>DNI: </strong>" + asientos[numero-1].dni + "<br>";
+  html += "<strong>Asiento Nº "+objeto.asiento+"</strong><br>";
+  html += "<strong>Nombres: </strong>" + objeto.nombre + "<br>";
+  html += "<strong>Apellidos: </strong>" + objeto.apellido + "<br>";
+  html += "<strong>DNI: </strong>" + objeto.dni + "<br>";
   return '<div class="lista">'+html+ '</div>';
 }
 
@@ -98,22 +99,16 @@ function Liberar() {
 
 function Buscar() {
   var busqueda = document.getElementById('busqueda').value;
+  var encontrado = asientos.filter(a=>!undefined&&a.dni==busqueda);
   var lista='';
-  for(var i= 1; i <= asientos.length; i++){
-    if(asientos[i-1]!=undefined && busqueda == asientos[i-1].dni){
-      lista += mostrar(i);
-    }
-  }
+  encontrado.forEach(a=>lista+=mostrar(a));
   document.getElementById('mostrar').innerHTML=lista;
 }
 
 function Listar() {
   limpiar();
-  var lista = '';
-  for (var i = 1; i <= asientos.length; i++) {
-    if (asientos[i-1]!= undefined) {
-      lista += mostrar(i);
-    }
-  }
+  var ocupados = asientos.filter(a=>!undefined);
+  var lista='';
+  ocupados.forEach(a=>lista+=mostrar(a));
   document.getElementById('mostrar').innerHTML=lista;
 }
